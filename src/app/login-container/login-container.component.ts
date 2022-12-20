@@ -7,11 +7,12 @@ import { Component } from '@angular/core';
 })
 
 export class LoginContainerComponent {
-  username: String | undefined;
-  password: String | undefined;
+  username: String | undefined = '';
+  password: String | undefined = '';
 
-  onSubmit() {
-    console.log(this.username);
+  onLogin() {
     window.alert(`Login with ${this.username} and ${this.password}`);
+    this.username="";
+    this.password="";
   }
 }

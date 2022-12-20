@@ -4,16 +4,22 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginContainerComponent } from './login-container/login-container.component';
 import { NamedInputFieldComponent } from './named-input-field/named-input-field.component';
+import { SignUpContainerComponent } from './sign-up-container/sign-up-container.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginContainerComponent,
-    NamedInputFieldComponent
+    NamedInputFieldComponent,
+    SignUpContainerComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([
+      {path: '', component: LoginContainerComponent},
+      {path: 'register', component: SignUpContainerComponent}])
   ],
   providers: [],
   bootstrap: [AppComponent]

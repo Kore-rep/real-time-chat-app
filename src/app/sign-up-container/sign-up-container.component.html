@@ -1,4 +1,4 @@
-<form class="main-form" (submit)="onLogin()">
+<form class="main-form" (submit)="onSignUp()">
   <div class="fields-div">
     <app-named-input-field
       class="username-div"
@@ -16,11 +16,11 @@
   </div>
   <div class="button-div">
     <button
-      class="login-button"
+      class="sign-up-button"
       type="submit"
       [disabled]="username === '' || password === ''"
     >
-      Login
+      Sign Up
     </button>
   </div>
 </form>
