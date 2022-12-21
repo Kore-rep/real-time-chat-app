@@ -1,0 +1,29 @@
+<form class="main-form" (submit)="onLogin()">
+  <div class="fields-div">
+    <app-named-input-field
+      class="username-div"
+      label="Username"
+      inputName="uName"
+      [(targetProperty)]="username"
+    ></app-named-input-field>
+    <app-named-input-field
+      class="password-div"
+      label="Password"
+      inputName="pWord"
+      inputType="password"
+      [(targetProperty)]="password"
+    ></app-named-input-field>
+  </div>
+  <div class="button-div">
+    <button
+      class="login-button"
+      type="submit"
+      [disabled]="username === '' || password === ''"
+    >
+      Login
+    </button>
+    <a routerLink="/register"
+      ><button class="register-button" type="button">No Account?</button></a
+    >
+  </div>
+</form>

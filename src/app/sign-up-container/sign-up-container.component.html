@@ -1,0 +1,42 @@
+<form class="main-form" (submit)="onSignUp()">
+  <div class="fields-div">
+    <app-named-input-field
+      class="input-div"
+      label="Username"
+      inputName="uName"
+      [(targetProperty)]="username"
+    ></app-named-input-field>
+    <app-named-input-field
+      class="input-div"
+      label="Password"
+      inputName="pWord"
+      inputType="password"
+      [(targetProperty)]="password"
+    ></app-named-input-field>
+    <app-named-input-field
+      class="input-div"
+      label="Confirm Password"
+      inputName="confirmpWord"
+      inputType="password"
+      [(targetProperty)]="passwordConfirm"
+    ></app-named-input-field>
+    <app-named-input-field
+      class="input-div"
+      label="Email"
+      inputName="eMail"
+      [(targetProperty)]="email"
+    ></app-named-input-field>
+  </div>
+  <div class="button-div">
+    <button
+      class="sign-up-button"
+      type="submit"
+      [disabled]="!shouldAllowSignUp()"
+    >
+      Sign Up
+    </button>
+    <a routerLink="/"
+      ><button class="login-button" type="button">Have an account?</button></a
+    >
+  </div>
+</form>
