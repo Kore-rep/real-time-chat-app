@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { pbLogin, pbRegister } from '../pocketbaseService';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-sign-up-container',
@@ -12,14 +13,27 @@ export class SignUpContainerComponent {
   passwordConfirm: string = '';
   email: string = '';
 
+  constructor(private router: Router) {}
+
+
   async onSignUp() {
     if (this.password !== this.passwordConfirm) {
       window.alert('Passwords do not match.');
       return;
     }
-    window.alert(`Sign up: ${this.username} and ${this.password}`);
-    await pbRegister(this.username, this.password, this.passwordConfirm, this.email);
-    await pbLogin(this.username, this.password);
+    const registerResposne = await pbRegister(this.username, this.password, this.passwordConfirm, this.email);
+    switch (registerResposne.code) {
+      case 204:
+        window.alert('Successful sign up.');
+        this.router.navigate(['/login'])
+        break;
+      case 400:
+        window.alert('Unable to register, invalid request');
+        break;
+      default:
+        window.alert('Unknown error.');
+    }
+
     this.username = '';
     this.password = '';
     this.passwordConfirm = '';

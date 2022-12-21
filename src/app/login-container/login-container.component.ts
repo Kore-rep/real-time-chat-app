@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { pbLogin } from '../pocketbaseService';
 @Component({
   selector: 'app-login-container',
@@ -10,13 +11,15 @@ export class LoginContainerComponent {
   username: string = '';
   password: string = '';
 
+  constructor(private router: Router) {}
+
   async onLogin() {
-    window.alert(`Login with ${this.username} and ${this.password}`);
     const loginResponse = await pbLogin(this.username, this.password);
     switch (loginResponse.code) {
       case 200:
         window.alert('Successful login.');
         this.username="";
+        this.router.navigate([''])
         break;
       case 400:
         window.alert('Unable to log in with provided details.');
