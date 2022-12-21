@@ -6,13 +6,15 @@ import { LoginContainerComponent } from './login-container/login-container.compo
 import { NamedInputFieldComponent } from './named-input-field/named-input-field.component';
 import { SignUpContainerComponent } from './sign-up-container/sign-up-container.component';
 import { RouterModule } from '@angular/router';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginContainerComponent,
     NamedInputFieldComponent,
-    SignUpContainerComponent
+    SignUpContainerComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

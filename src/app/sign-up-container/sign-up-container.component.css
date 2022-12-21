@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-.username-div {
+.input-div {
   padding: 10px
 }
 
@@ -27,6 +27,7 @@
   justify-self: center;
 }
 
-.login-button {
+.sign-up-button {
+  margin: 15px;
   width: 65px;
 }

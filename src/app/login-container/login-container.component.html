@@ -10,7 +10,7 @@
       class="password-div"
       label="Password"
       inputName="pWord"
-      inputType="text"
+      inputType="password"
       [(targetProperty)]="password"
     ></app-named-input-field>
   </div>
@@ -22,5 +22,8 @@
     >
       Login
     </button>
+    <a routerLink="/register"
+      ><button class="register-button" type="button">No Account?</button></a
+    >
   </div>
 </form>

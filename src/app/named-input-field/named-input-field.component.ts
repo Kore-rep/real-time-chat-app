@@ -7,12 +7,12 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./named-input-field.component.css']
 })
 export class NamedInputFieldComponent {
-  @Input() label!: String;
-  @Input() inputName!: String;
-  @Input() inputType!: String | "text";
-  @Input() targetProperty: String | undefined;
+  @Input() label!: string;
+  @Input() inputName!: string;
+  @Input() inputType!: string | "text";
+  @Input() targetProperty: string | undefined;
   @Output() targetPropertyChange = new EventEmitter();
-  changeTargetProperty(newValue: String) {
+  changeTargetProperty(newValue: string) {
     this.targetProperty = newValue
     this.targetPropertyChange.emit(newValue)
   }
