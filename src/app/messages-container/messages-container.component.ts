@@ -1,9 +1,10 @@
 import { Message } from './../pocketbaseTypes';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   pbGetRecentMessages,
   pbSubscribe,
   pbGetUser,
+  pbGetCurrentUser,
 } from '../pocketbaseService';
 import { UnsubscribeFunc } from 'pocketbase';
 
@@ -15,9 +16,19 @@ import { UnsubscribeFunc } from 'pocketbase';
 export class MessagesContainerComponent {
   messages: Message[] = [];
   unsubscribe!: UnsubscribeFunc;
+  prevContainerHeight: number = 0;
+  @ViewChild('msgs') messagesContainer!: ElementRef;
+  TAKE: number = 50;
+  PAGE: number = 1;
+  shouldScrollToPrevious: boolean = false;
+  totalPages: number = 0;
+  totalMessages: number = 0;
 
   async ngOnInit() {
-    this.messages = (await pbGetRecentMessages()).items;
+    const messagesResponse = await pbGetRecentMessages(this.PAGE, this.TAKE);
+    this.messages = messagesResponse.items;
+    this.totalPages = messagesResponse.totalPages;
+    this.totalMessages = messagesResponse.totalItems;
     this.unsubscribe = await pbSubscribe(
       'messages',
       async ({ action, record }) => {
@@ -26,12 +37,41 @@ export class MessagesContainerComponent {
         this.messages = [...this.messages, record];
       }
     );
-    console.log(this.messages);
+    this.scrollToBottom();
   }
 
-  async ngOnDestroy() {
+  ngAfterViewChecked() {
+    if (this._canScrollToBottom()) {
+      this.scrollToBottom();
+    }
+  }
+
+  async ngOnDestroy(): Promise<void> {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop =
+        this.messagesContainer.nativeElement.scrollHeight;
+    } catch (err) {}
+  }
+
+  _canScrollToBottom(): boolean {
+    var scrollHeight = this.messagesContainer.nativeElement.scrollHeight;
+    var scrollTop = this.messagesContainer.nativeElement.scrollTop;
+    var clientHeight = this.messagesContainer.nativeElement.clientHeight;
+    var can =
+      this.prevContainerHeight !== scrollHeight &&
+      scrollTop + clientHeight === this.prevContainerHeight;
+
+    this.prevContainerHeight = scrollHeight;
+    return can;
+  }
+
+  isOwnMessage(message: Message): Boolean {
+    return message.expand.user.id === pbGetCurrentUser()?.id;
   }
 }

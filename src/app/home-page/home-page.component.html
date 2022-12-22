@@ -1,20 +1,5 @@
 <app-page-header></app-page-header>
 <div class="homepage">
-  <app-messages-container class="message-container"></app-messages-container>
-  <div class="new-message-container">
-    <app-named-input-field
-      class="message-input"
-      label="Message"
-      inputName="msg"
-      [(targetProperty)]="message"
-    ></app-named-input-field>
-    <button
-      type="button"
-      class="send-button"
-      (click)="onMessageSend()"
-      [disabled]="message === ''"
-    >
-      Send
-    </button>
-  </div>
+  <app-messages-container></app-messages-container>
+  <app-message-creator></app-message-creator>
 </div>

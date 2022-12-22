@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { pbSendMessage } from '../pocketbaseService';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  selector: 'app-message-creator',
+  templateUrl: './message-creator.component.html',
+  styleUrls: ['./message-creator.component.css'],
 })
-export class HomePageComponent {
+export class MessageCreatorComponent {
   message: string = '';
 
   onMessageSend() {

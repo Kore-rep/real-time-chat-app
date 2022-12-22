@@ -1,0 +1,17 @@
+.new-message-container {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+.text-area {
+  width: 200px;
+  height: 100px;
+}
+
+.send-button {
+  margin: 5px;
+  margin-bottom: 0;
+  height: 40px;
+  align-self: center;
+}

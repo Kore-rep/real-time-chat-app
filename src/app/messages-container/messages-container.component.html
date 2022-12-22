@@ -1,5 +1,8 @@
-<div class="messages-container">
-  <div *ngFor="let message of messages" class="message">
+<div #msgs class="messages-container">
+  <div
+    *ngFor="let message of messages"
+    [ngClass]="{ message: true, 'own-message': isOwnMessage(message) }"
+  >
     <div>Sent by {{ message.expand.user.username }}</div>
     <div>{{ message.text }}</div>
   </div>
