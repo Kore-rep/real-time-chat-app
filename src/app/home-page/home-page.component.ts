@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { pbSendMessage, pbLogOut, pbIsLoggedIn } from '../pocketbaseService';
+import { pbSendMessage } from '../pocketbaseService';
 
 @Component({
   selector: 'app-home-page',

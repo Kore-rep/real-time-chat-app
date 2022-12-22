@@ -1,5 +1,5 @@
 import { Message } from './../pocketbaseTypes';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   pbGetRecentMessages,
   pbSubscribe,
@@ -16,6 +16,9 @@ export class MessagesContainerComponent {
   messages: Message[] = [];
   unsubscribe!: UnsubscribeFunc;
 
+  @ViewChild('msgs')
+  messagesContainer!: ElementRef;
+
   async ngOnInit() {
     this.messages = (await pbGetRecentMessages()).items;
     this.unsubscribe = await pbSubscribe(
@@ -26,12 +29,22 @@ export class MessagesContainerComponent {
         this.messages = [...this.messages, record];
       }
     );
-    console.log(this.messages);
   }
 
-  async ngOnDestroy() {
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  async ngOnDestroy(): Promise<void> {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop =
+        this.messagesContainer.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 }

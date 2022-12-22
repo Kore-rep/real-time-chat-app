@@ -1,7 +1,7 @@
 <app-page-header></app-page-header>
 <div class="homepage">
   <app-messages-container class="message-container"></app-messages-container>
-  <div class="new-message-container">
+  <form class="new-message-container">
     <app-named-input-field
       class="message-input"
       label="Message"
@@ -9,12 +9,12 @@
       [(targetProperty)]="message"
     ></app-named-input-field>
     <button
-      type="button"
+      type="submit"
       class="send-button"
       (click)="onMessageSend()"
       [disabled]="message === ''"
     >
       Send
     </button>
-  </div>
+  </form>
 </div>
