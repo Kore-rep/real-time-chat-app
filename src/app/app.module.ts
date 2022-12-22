@@ -8,6 +8,8 @@ import { SignUpContainerComponent } from './sign-up-container/sign-up-container.
 import { RouterModule, Router, CanActivateFn } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { pbIsLoggedIn } from './pocketbaseService';
+import { MessagesContainerComponent } from './messages-container/messages-container.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
 
 const loggedInGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -20,7 +22,9 @@ const loggedInGuard: CanActivateFn = () => {
     LoginContainerComponent,
     NamedInputFieldComponent,
     SignUpContainerComponent,
-    HomePageComponent
+    HomePageComponent,
+    MessagesContainerComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,

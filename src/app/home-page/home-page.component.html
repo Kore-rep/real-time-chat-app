@@ -1,2 +1,20 @@
-<button type="button" (click)="onSignOut()">Sign Out</button>
-<button type="button" (click)="onTestClick()">Click Me</button>
+<app-page-header></app-page-header>
+<div class="homepage">
+  <app-messages-container class="message-container"></app-messages-container>
+  <div class="new-message-container">
+    <app-named-input-field
+      class="message-input"
+      label="Message"
+      inputName="msg"
+      [(targetProperty)]="message"
+    ></app-named-input-field>
+    <button
+      type="button"
+      class="send-button"
+      (click)="onMessageSend()"
+      [disabled]="message === ''"
+    >
+      Send
+    </button>
+  </div>
+</div>

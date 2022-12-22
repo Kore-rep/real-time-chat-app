@@ -1,29 +1,16 @@
 import { Component } from '@angular/core';
-import { pbGetCurrentUser, pbLogOut, pbIsLoggedIn } from '../pocketbaseService';
-import { Router } from '@angular/router';
-
+import { pbSendMessage, pbLogOut, pbIsLoggedIn } from '../pocketbaseService';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent {
-  constructor(private router: Router) {}
+  message: string = '';
 
-  onSignOut() {
-    if (pbIsLoggedIn()) {
-      pbLogOut();
-      window.alert('Signed Out');
-      this.router.navigate(['/login'])
-      return;
-    }
-    window.alert('Not Signed in');
-  }
-
-  onTestClick() {
-    if (pbIsLoggedIn()) {
-      window.alert(`Your user id: ${pbGetCurrentUser()?.id}`);
-    }
+  onMessageSend() {
+    pbSendMessage(this.message);
+    this.message = '';
   }
 }
