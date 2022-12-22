@@ -71,10 +71,9 @@ export async function pbGetRecentMessages(): Promise<ListResult<Message>> {
   const messageResponse = await pb
     .collection('messages')
     .getList<Message>(1, 50, {
-      sort: 'created',
+      sort: '-created',
       expand: 'user',
     });
-  console.log(messageResponse.items[0]);
   return messageResponse;
 }
 

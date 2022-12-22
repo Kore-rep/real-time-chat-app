@@ -1,14 +1,20 @@
 .messages-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   padding: 15px;
   outline: 1px solid red;
   overflow-y: scroll;
-  height: 600px;
+  height: 500px;
+  width: 400px;
+  resize: both;
 }
 
 .message {
   outline: 1px solid black;
   padding: 5px;
   margin: 5px;
+}
+
+.own-message {
+  outline: 1px solid #2a76f0;
 }

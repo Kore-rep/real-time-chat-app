@@ -10,6 +10,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { pbIsLoggedIn } from './pocketbaseService';
 import { MessagesContainerComponent } from './messages-container/messages-container.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
+import { MessageCreatorComponent } from './message-creator/message-creator.component';
 
 const loggedInGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -24,7 +25,8 @@ const loggedInGuard: CanActivateFn = () => {
     SignUpContainerComponent,
     HomePageComponent,
     MessagesContainerComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    MessageCreatorComponent
   ],
   imports: [
     BrowserModule,

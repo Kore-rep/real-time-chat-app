@@ -4,6 +4,7 @@ import {
   pbGetRecentMessages,
   pbSubscribe,
   pbGetUser,
+  pbGetCurrentUser,
 } from '../pocketbaseService';
 import { UnsubscribeFunc } from 'pocketbase';
 
@@ -15,9 +16,8 @@ import { UnsubscribeFunc } from 'pocketbase';
 export class MessagesContainerComponent {
   messages: Message[] = [];
   unsubscribe!: UnsubscribeFunc;
-
-  @ViewChild('msgs')
-  messagesContainer!: ElementRef;
+  prevContainerHeight: number = 0;
+  @ViewChild('msgs') messagesContainer!: ElementRef;
 
   async ngOnInit() {
     this.messages = (await pbGetRecentMessages()).items;
@@ -29,10 +29,13 @@ export class MessagesContainerComponent {
         this.messages = [...this.messages, record];
       }
     );
+    this.scrollToBottom();
   }
 
   ngAfterViewChecked() {
-    this.scrollToBottom();
+    if (this._canScrollToBottom()) {
+      this.scrollToBottom();
+    }
   }
 
   async ngOnDestroy(): Promise<void> {
@@ -46,5 +49,21 @@ export class MessagesContainerComponent {
       this.messagesContainer.nativeElement.scrollTop =
         this.messagesContainer.nativeElement.scrollHeight;
     } catch (err) {}
+  }
+
+  _canScrollToBottom(): boolean {
+    var scrollHeight = this.messagesContainer.nativeElement.scrollHeight;
+    var scrollTop = this.messagesContainer.nativeElement.scrollTop;
+    var clientHeight = this.messagesContainer.nativeElement.clientHeight;
+    var can =
+      this.prevContainerHeight !== scrollHeight &&
+      scrollTop + clientHeight === this.prevContainerHeight;
+
+    this.prevContainerHeight = scrollHeight;
+    return can;
+  }
+
+  ownMessage(message: Message): Boolean {
+    return message.expand.user.id === pbGetCurrentUser()?.id;
   }
 }
