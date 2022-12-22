@@ -67,13 +67,17 @@ export async function pbGetUser(userId: string): Promise<User> {
   return await pb.collection('users').getOne<User>(userId);
 }
 
-export async function pbGetRecentMessages(): Promise<ListResult<Message>> {
+export async function pbGetRecentMessages(
+  page: number,
+  take: number
+): Promise<ListResult<Message>> {
   const messageResponse = await pb
     .collection('messages')
-    .getList<Message>(1, 50, {
+    .getList<Message>(page, take, {
       sort: '-created',
       expand: 'user',
     });
+  messageResponse.items.reverse();
   return messageResponse;
 }
 

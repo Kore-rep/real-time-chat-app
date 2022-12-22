@@ -18,9 +18,17 @@ export class MessagesContainerComponent {
   unsubscribe!: UnsubscribeFunc;
   prevContainerHeight: number = 0;
   @ViewChild('msgs') messagesContainer!: ElementRef;
+  TAKE: number = 50;
+  PAGE: number = 1;
+  shouldScrollToPrevious: boolean = false;
+  totalPages: number = 0;
+  totalMessages: number = 0;
 
   async ngOnInit() {
-    this.messages = (await pbGetRecentMessages()).items;
+    const messagesResponse = await pbGetRecentMessages(this.PAGE, this.TAKE);
+    this.messages = messagesResponse.items;
+    this.totalPages = messagesResponse.totalPages;
+    this.totalMessages = messagesResponse.totalItems;
     this.unsubscribe = await pbSubscribe(
       'messages',
       async ({ action, record }) => {
@@ -63,7 +71,7 @@ export class MessagesContainerComponent {
     return can;
   }
 
-  ownMessage(message: Message): Boolean {
+  isOwnMessage(message: Message): Boolean {
     return message.expand.user.id === pbGetCurrentUser()?.id;
   }
 }
